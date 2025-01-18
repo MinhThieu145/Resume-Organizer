@@ -1,0 +1,38 @@
+[
+  {
+    "role": "Summer Analyst – Business Intelligence",
+    "organization": "Goldman Sachs",
+    "location": "Salt Lake City, UT",
+    "date_range": "Jun 2024 – Aug 2024",
+    "achievements": [
+      "Gathered and analyzed data from three SQL tables, consolidating it into a new SQL data source for a Tableau dashboard that managed $1M in trading assets.",
+      "Created a Tableau dashboard to monitor invoice resolution progress, track backlog, and analyze solved invoices, enhancing visibility into the Receivables team's performance.",
+      "Worked with the Receivables team to create an Alteryx workflow that monitors invoice issues, reducing manual data auditing time by approximately 12 hours."
+    ],
+    "uploaded_at": "2025-01-18T19:33:11.148Z"
+  },
+  {
+    "role": "Data Analyst Intern",
+    "organization": "Med-kick",
+    "location": "Remote",
+    "date_range": "May 2023 – Sep 2023",
+    "achievements": [
+      "Analyzed financial data using Python and Pandas, identifying inefficiencies and uncovering $5,000 in potential cost savings by addressing underperforming departments.",
+      "Developed a PySpark Random Forest Regressor to forecast monthly revenue and expenses, preprocessing data and achieving an R² score of 0.8 through 5‑fold cross‑validation.",
+      "Designed a data pipeline with AWS Lambda and S3 to automate financial data ingestion into the company’s data lake, reducing manual processing by 2 hours weekly."
+    ],
+    "uploaded_at": "2025-01-18T19:33:11.148Z"
+  },
+  {
+    "role": "Research Assistant",
+    "organization": "University of South Florida",
+    "location": "Tampa, FL",
+    "date_range": "Oct 2023 – Dec 2023",
+    "achievements": [
+      "Applied TF-IDF and NLP techniques to analyze whitepaper content, linking keyword density and jargon to cryptocurrency performance.",
+      "Developed and optimized linear regression models using whitepaper features to forecast cryptocurrency price growth and identify feature correlations.",
+      "Integrated GPT API to automate dataset recategorization, standardizing categorical fields (e.g., names, tech stacks), saving 50 hours of manual editing time."
+    ],
+    "uploaded_at": "2025-01-18T19:33:11.148Z"
+  }
+]
