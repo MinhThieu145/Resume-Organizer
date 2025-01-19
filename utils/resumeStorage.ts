@@ -1,6 +1,3 @@
-import fs from 'fs/promises';
-import path from 'path';
-
 // Types for our storage
 export interface Experience {
     role: string;
@@ -18,106 +15,84 @@ export interface Project {
     details: string[];
 }
 
-// File paths for our JSON storage
-const DATA_DIR = path.join(process.cwd(), 'public', 'data');
-const EXPERIENCES_FILE = path.join(DATA_DIR, 'experiences.json');
-const PROJECTS_FILE = path.join(DATA_DIR, 'projects.json');
-
-// Ensure data directory exists
-async function ensureDataDir() {
-    try {
-        await fs.access(DATA_DIR);
-    } catch {
-        await fs.mkdir(DATA_DIR, { recursive: true });
-    }
-}
-
-// Read JSON file or return empty array if file doesn't exist
-async function readJsonFile<T>(filePath: string): Promise<T[]> {
-    try {
-        const content = await fs.readFile(filePath, 'utf-8');
-        return JSON.parse(content);
-    } catch {
+// Get all stored experiences
+export async function getAllExperiences(): Promise<Experience[]> {
+    const response = await fetch('/data/experiences.json');
+    if (!response.ok) {
         return [];
     }
+    return response.json();
 }
 
-// Write data to JSON file
-async function writeJsonFile<T>(filePath: string, data: T[]): Promise<void> {
-    await fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf-8');
+// Get all stored projects
+export async function getAllProjects(): Promise<Project[]> {
+    const response = await fetch('/data/projects.json');
+    if (!response.ok) {
+        return [];
+    }
+    return response.json();
 }
 
-// Check if an experience is exactly the same
-function isUniqueExperience(newExp: Experience, existingExps: Experience[]): boolean {
-    return !existingExps.some(exp => 
-        exp.role === newExp.role &&
-        exp.organization === newExp.organization &&
-        exp.location === newExp.location &&
-        exp.date_range === newExp.date_range &&
-        exp.achievements.length === newExp.achievements.length &&
-        exp.achievements.every((achievement, index) => 
-            achievement === newExp.achievements[index]
-        )
-        // Intentionally not comparing uploaded_at
-    );
+// Delete an experience by matching its properties
+export async function deleteExperience(expToDelete: Experience): Promise<void> {
+    const response = await fetch('/api/experience/delete', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(expToDelete),
+    });
+
+    if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to delete experience');
+    }
 }
 
-// Check if a project is exactly the same
-function isUniqueProject(newProj: Project, existingProjs: Project[]): boolean {
-    return !existingProjs.some(proj => 
-        proj.project_name === newProj.project_name &&
-        proj.role === newProj.role &&
-        proj.date_range === newProj.date_range &&
-        proj.details.length === newProj.details.length &&
-        proj.details.every((detail, index) => 
-            detail === newProj.details[index]
-        )
-    );
+// Delete a project by matching its properties
+export async function deleteProject(projToDelete: Project): Promise<void> {
+    const response = await fetch('/api/project/delete', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(projToDelete),
+    });
+
+    if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to delete project');
+    }
 }
 
 // Store new experiences if they're unique
 export async function storeExperiences(experiences: Omit<Experience, 'uploaded_at'>[]): Promise<void> {
-    await ensureDataDir();
-    const existingExperiences = await readJsonFile<Experience>(EXPERIENCES_FILE);
-    
-    const experiencesWithDate = experiences.map(exp => ({
-        ...exp,
-        uploaded_at: new Date().toISOString()
-    }));
+    const response = await fetch('/api/resume-parsing', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ experiences }),
+    });
 
-    const newExperiences = experiencesWithDate.filter(exp => 
-        isUniqueExperience(exp, existingExperiences)
-    );
-    
-    if (newExperiences.length > 0) {
-        await writeJsonFile(EXPERIENCES_FILE, [...existingExperiences, ...newExperiences]);
-        console.log(`Stored ${newExperiences.length} new experiences`);
+    if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to store experiences');
     }
 }
 
 // Store new projects if they're unique
 export async function storeProjects(projects: Project[]): Promise<void> {
-    await ensureDataDir();
-    const existingProjects = await readJsonFile<Project>(PROJECTS_FILE);
-    
-    const newProjects = projects.filter(proj => 
-        isUniqueProject(proj, existingProjects)
-    );
-    
-    if (newProjects.length > 0) {
-        await writeJsonFile(PROJECTS_FILE, [...existingProjects, ...newProjects]);
-        console.log(`Stored ${newProjects.length} new projects`);
+    const response = await fetch('/api/resume-parsing', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ projects }),
+    });
+
+    if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to store projects');
     }
-}
-
-// Get all stored experiences
-export async function getAllExperiences(): Promise<Experience[]> {
-    await ensureDataDir();
-    return readJsonFile<Experience>(EXPERIENCES_FILE);
-}
-
-// Get all stored projects
-export async function getAllProjects(): Promise<Project[]> {
-    await ensureDataDir();
-    return readJsonFile<Project>(PROJECTS_FILE);
 }

@@ -1,15 +1,49 @@
 [
   {
+    "role": "Computer Lab Assistant",
+    "organization": "University of South Florida",
+    "location": "Tampa, Fl",
+    "date_range": "Apr 2024 ‑ Current",
+    "achievements": [
+      "Assisted an average of 30+ students daily with tasks such as operating printers, logging into systems, and basic software troubleshooting.",
+      "Managed and maintained computer systems, ensuring all lab equipment was functional and the environment was clean."
+    ],
+    "uploaded_at": "2025-01-18T20:55:05.549Z"
+  },
+  {
+    "role": "Teaching Assistant",
+    "organization": "Microsoft",
+    "location": "Remote",
+    "date_range": "Aug 2024 ‑ Current",
+    "achievements": [
+      "Led high school students in Python programming through creative tasks and coding challenges, fostering engagement and understanding.",
+      "Provided tailored mentorship, adapting lessons to individual learning styles and introducing up‑to‑date Python concepts and practices."
+    ],
+    "uploaded_at": "2025-01-18T20:55:05.549Z"
+  },
+  {
+    "role": "Research Assistant",
+    "organization": "University of South Florida",
+    "location": "Tampa, Fl",
+    "date_range": "Nov 2023 – Dec 2023",
+    "achievements": [
+      "Collaborated with a team of 3 researchers, using SCRUM methodology to organize and manage our study on how whitepapers influence cryptocurrency performance.",
+      "Collected and analyzed a dataset of 1,800+ cryptocurrency whitepapers, providing the foundational data that formed the basis of the study's findings and conclusions.",
+      "Contributed to drafting a preliminary report of findings for potential publication."
+    ],
+    "uploaded_at": "2025-01-18T20:55:05.549Z"
+  },
+  {
     "role": "Summer Analyst – Business Intelligence",
     "organization": "Goldman Sachs",
     "location": "Salt Lake City, UT",
     "date_range": "Jun 2024 – Aug 2024",
     "achievements": [
       "Gathered and analyzed data from three SQL tables, consolidating it into a new SQL data source for a Tableau dashboard that managed $1M in trading assets.",
-      "Created a Tableau dashboard to monitor invoice resolution progress, track backlog, and analyze solved invoices, enhancing visibility into the Receivables team's performance.",
-      "Worked with the Receivables team to create an Alteryx workflow that monitors invoice issues, reducing manual data auditing time by approximately 12 hours."
+      "Developed a Tableau dashboard to monitor invoice resolution progress, track backlog, and analyze solved invoices, enhancing financial reporting efficiency.",
+      "Collaborated with the Receivables team to develop an Alteryx workflow that monitors invoice issues, reduce manual data audit time by roughly 12 hours manually."
     ],
-    "uploaded_at": "2025-01-18T19:33:11.148Z"
+    "uploaded_at": "2025-01-18T20:55:54.091Z"
   },
   {
     "role": "Data Analyst Intern",
@@ -17,22 +51,22 @@
     "location": "Remote",
     "date_range": "May 2023 – Sep 2023",
     "achievements": [
-      "Analyzed financial data using Python and Pandas, identifying inefficiencies and uncovering $5,000 in potential cost savings by addressing underperforming departments.",
-      "Developed a PySpark Random Forest Regressor to forecast monthly revenue and expenses, preprocessing data and achieving an R² score of 0.8 through 5‑fold cross‑validation.",
-      "Designed a data pipeline with AWS Lambda and S3 to automate financial data ingestion into the company’s data lake, reducing manual processing by 2 hours weekly."
+      "Analyzed financial data using Excel, identifying inefficiencies and potential cost savings of $5,000 by highlighting loss‑making departments.",
+      "Developed a Power BI dashboard for department revenue/expense and employee performance analysis, providing cost‑saving insights and optimizing resource allocation.",
+      "Delivered weekly ad-hoc analysis of financial health, employee performance, and call metrics, providing insights and recommendations to non‑technical stakeholders."
     ],
-    "uploaded_at": "2025-01-18T19:33:11.148Z"
+    "uploaded_at": "2025-01-18T20:55:54.091Z"
   },
   {
-    "role": "Research Assistant",
+    "role": "Financial Analyst",
     "organization": "University of South Florida",
     "location": "Tampa, FL",
-    "date_range": "Oct 2023 – Dec 2023",
+    "date_range": "Sep 2023 – May 2024",
     "achievements": [
-      "Applied TF-IDF and NLP techniques to analyze whitepaper content, linking keyword density and jargon to cryptocurrency performance.",
-      "Developed and optimized linear regression models using whitepaper features to forecast cryptocurrency price growth and identify feature correlations.",
-      "Integrated GPT API to automate dataset recategorization, standardizing categorical fields (e.g., names, tech stacks), saving 50 hours of manual editing time."
+      "Managed a $5K club budget using Excel, collaborating with three team members in monthly meetings to track spending and optimize resource allocation.",
+      "Analyzed revenue and expenses using Python and Tableau to generate weekly financial reports for club leadership, identifying potential savings of $1K through expense optimization.",
+      "Developed business case models in Tableau to forecast budget scenarios, providing insights that improved event funding decisions."
     ],
-    "uploaded_at": "2025-01-18T19:33:11.148Z"
+    "uploaded_at": "2025-01-18T20:55:54.091Z"
   }
 ]

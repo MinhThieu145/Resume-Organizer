@@ -1,38 +1,42 @@
 [
   {
-    "project_name": "IMC Prosperity Challenge",
-    "role": "Software Developer",
-    "date_range": "Apr 2024",
+    "project_name": "Heart Disease Risk Prediction",
+    "role": "Data Analyst",
+    "date_range": "Ongoing",
     "details": [
-      "Boosted team ranking dramatically, moving from over 3000 to the top 500 in Round 3.",
-      "Designed and implemented a delayed time‑series linear regression strategy in C#, integrating moving average techniques to predict and exploit market trends, resulting in a marked improvement in prediction accuracy."
-    ]
+      "Used SQL and Pandas for data manipulation, focusing on age, cholesterol, and chest pain types to identify heart disease correlations.",
+      "Created Tableau dashboards showing relationships between risk factors, used linear regression to predict disease likelihood, enhancing model output interpretability."
+    ],
+    "uploaded_at": "2025-01-18T20:55:54.091Z"
+  },
+  {
+    "project_name": "Diabetes Readmission Prediction",
+    "role": "Data Analyst",
+    "date_range": "Ongoing",
+    "details": [
+      "Utilized SQL and Pandas to preprocess the \"Diabetes 130‑US hospitals\" dataset, focusing on demographics, treatment, and hospital stay variables.",
+      "Applied logistic regression with Scikit‑learn, analyzed key factors influencing readmission, and visualized insights in Tableau for healthcare decision‑making."
+    ],
+    "uploaded_at": "2025-01-18T20:55:54.091Z"
   },
   {
     "project_name": "Google Summer of Code",
-    "role": "Software Developer",
-    "date_range": "May 2024 – Sep 2024",
-    "details": [
-      "Automated AWS infrastructure by streamlining the removal of ECS workers for disapproved challenges, saving over 260 hours of manual labor annually.",
-      "Engineered a Django Admin dashboard to manage EC2 instances, reducing setup times by 50% and significantly enhancing operational efficiency."
-    ]
-  },
-  {
-    "project_name": "Google Summer of Code",
-    "role": "Software Engineer",
-    "date_range": "N/A",
+    "role": "Developer",
+    "date_range": "Not specified",
     "details": [
       "Developed a data pipeline on AWS using Python and Bash scripts to collect daily resource utilization metrics (CPU, memory).",
       "Adjusted ECS worker count, CPU, and memory dynamically using collected metrics, based on conditions like resource thresholds."
-    ]
+    ],
+    "uploaded_at": "2025-01-19T03:21:09.848Z"
   },
   {
-    "project_name": "USF Library Room Analysis",
-    "role": "N/A",
-    "date_range": "N/A",
+    "project_name": "Payment Fraud Prediction and Analysis",
+    "role": "Data Analyst",
+    "date_range": "Not specified",
     "details": [
-      "Automated data collection on AWS using Lambda and Step Functions, storing raw data in Amazon S3 for scalable and secure storage.",
-      "Transformed and curated data with PySpark in AWS SageMaker, enabling structured analysis and efficient querying to support predictive modeling workflows."
-    ]
+      "Processed Kaggle's \"Online Payment Fraud\" dataset using SQL and Pandas, handled missing values, normalized data, and engineered transaction features.",
+      "Trained logistic regression in Scikit‑learn, optimized with cross‑validation, and visualized fraud trends and feature importance in Tableau dashboards."
+    ],
+    "uploaded_at": "2025-01-19T03:21:09.848Z"
   }
 ]

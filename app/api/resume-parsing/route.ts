@@ -1,12 +1,12 @@
 import { NextResponse } from 'next/server';
-import { writeFile, mkdir, unlink } from 'fs/promises';
+import { writeFile, mkdir, unlink, readFile } from 'fs/promises';
 import path from 'path';
 import { LlamaParseReader } from "llamaindex";
 import OpenAI from "openai";
 import { zodResponseFormat } from "openai/helpers/zod";
 import { z } from "zod";
 import 'dotenv/config';
-import { storeExperiences, storeProjects } from '@/utils/resumeStorage';
+import { Experience, Project } from '@/utils/resumeStorage';
 
 // Define structured output interfaces
 const ExperienceSchema = z.object({
@@ -35,13 +35,17 @@ interface ParsedExperience extends z.infer<typeof ExperienceSchema> {
     uploaded_at: string;
 }
 
+interface ParsedProject extends z.infer<typeof ProjectSchema> {
+    uploaded_at: string;
+}
+
 interface ResponseData {
     fileName: string;
     fileSize: number;
     rawContent: string;
     structuredContent: {
         experience: ParsedExperience[];
-        projects: z.infer<typeof ProjectSchema>[];
+        projects: ParsedProject[];
     };
 }
 
@@ -166,10 +170,70 @@ export async function POST(request: Request) {
         }
 
         // Store the parsed data
-        await Promise.all([
-            storeExperiences(structuredContent.experience),
-            storeProjects(structuredContent.projects)
-        ]);
+        const experiencesPath = path.join(process.cwd(), 'public', 'data', 'experiences.json');
+        const projectsPath = path.join(process.cwd(), 'public', 'data', 'projects.json');
+
+        try {
+            // Read existing data
+            let existingExperiences: Experience[] = [];
+            let existingProjects: Project[] = [];
+            
+            try {
+                existingExperiences = JSON.parse(await readFile(experiencesPath, 'utf-8'));
+                existingProjects = JSON.parse(await readFile(projectsPath, 'utf-8'));
+            } catch (error) {
+                // Files might not exist yet, which is fine
+                console.log('No existing data found, creating new files');
+            }
+
+            // Add new experiences with uploaded_at
+            const newExperiences = structuredContent.experience.map(exp => ({
+                ...exp,
+                uploaded_at: new Date().toISOString()
+            }));
+
+            // Merge and deduplicate experiences
+            const allExperiences = [...existingExperiences];
+            for (const newExp of newExperiences) {
+                const isDuplicate = existingExperiences.some(existingExp => 
+                    existingExp.role === newExp.role && 
+                    existingExp.organization === newExp.organization &&
+                    existingExp.date_range === newExp.date_range
+                );
+                if (!isDuplicate) {
+                    allExperiences.push(newExp);
+                }
+            }
+
+            // Add new projects with uploaded_at
+            const newProjects = structuredContent.projects.map(proj => ({
+                ...proj,
+                uploaded_at: new Date().toISOString()
+            }));
+
+            // Merge and deduplicate projects
+            const allProjects = [...existingProjects];
+            for (const newProj of newProjects) {
+                const isDuplicate = existingProjects.some(existingProj => 
+                    existingProj.project_name === newProj.project_name && 
+                    existingProj.role === newProj.role &&
+                    existingProj.date_range === newProj.date_range
+                );
+                if (!isDuplicate) {
+                    allProjects.push(newProj);
+                }
+            }
+
+            // Ensure the data directory exists
+            await mkdir(path.dirname(experiencesPath), { recursive: true });
+
+            // Write the updated data
+            await writeFile(experiencesPath, JSON.stringify(allExperiences, null, 2));
+            await writeFile(projectsPath, JSON.stringify(allProjects, null, 2));
+        } catch (error) {
+            console.error('Error storing data:', error);
+            return NextResponse.json({ error: 'Failed to store parsed data' }, { status: 500 });
+        }
 
         // Update frontend interface to match this structure
         const response: ResponseData = {
@@ -178,7 +242,7 @@ export async function POST(request: Request) {
             rawContent: parsedContent,
             structuredContent: {
                 experience: structuredContent.experience.map((experience) => ({ ...experience, uploaded_at: new Date().toISOString() })),
-                projects: structuredContent.projects
+                projects: structuredContent.projects.map((project) => ({ ...project, uploaded_at: new Date().toISOString() }))
             }
         };
         console.log('Sending response to frontend');
